@@ -18,24 +18,42 @@ public class Servidor {
         ServerSocket serverSocket = new ServerSocket(5432);
         
         while(true) {
-            //escucha el puerto 5432
-            socket = serverSocket.accept();
-            //imprime la ip del mensaje que fue recibido en el puerto
-            System.out.println("\nSe conectaron desde la IP: " + socket.getInetAddress()); 
-            //obtencion del mensaje
-            objectInputStream = new ObjectInputStream(socket.getInputStream());
-            //salida del mensaje
-            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            try{
+                //escucha el puerto 5432
+                socket = serverSocket.accept();
+                //imprime la ip del mensaje que fue recibido en el puerto
+                System.out.println("\nSe conectaron desde la IP: " + socket.getInetAddress()); 
+                //obtencion del mensaje
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
+                //salida del mensaje
+                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+
+                //desempaquetado de informacion para la obtencion de datos del mensaje
+                String nombre = (String) objectInputStream.readObject();
+                //saludo al cliete, con su nombre y hora de recibido en el servidor
+                String saludo = "Hola " + nombre + " tiempo: " + System.currentTimeMillis();
+
+                //envio del mensaje
+                objectOutputStream.writeObject(saludo);
+                //confirmacion de envio de mensaje en consola
+                System.out.println("enviando mensaje al cliente");
+            }
+            catch (Exception ex){
+                ex.printStackTrace();    
+            }
+            finally{
+                if(objectOutputStream != null){
+                    objectOutputStream.close();
+                }
+                if(objectInputStream != null){
+                    objectInputStream.close();
+                }
+                if(socket != null){
+                    socket.close();
+                }
+                System.out.println("Conexion cerrada o terminada");
+            }
             
-            //desempaquetado de informacion para la obtencion de datos del mensaje
-            String nombre = (String) objectInputStream.readObject();
-            //saludo al cliete, con su nombre y hora de recibido en el servidor
-            String saludo = "Hola " + nombre + " tiempo: " + System.currentTimeMillis();
-            
-            //envio del mensaje
-            objectOutputStream.writeObject(saludo);
-            //confirmacion de envio de mensaje en consola
-            System.out.println("enviando mensaje al cliente");
         }
         
     }

@@ -2,11 +2,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import objetos.Conejo;
 
 public class Servidor {
     
     public static void main (String args []) throws Exception{
         
+        Conejo bugs = new Conejo();
+        System.out.println(bugs.getOrejas()+"\n"+bugs.getSentimiento()+"\n"+ bugs.getPatas());
         //objeto de escucha
         ObjectInputStream objectInputStream = null;
         //objeto de envio de informacion

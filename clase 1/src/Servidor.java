@@ -15,13 +15,14 @@ public class Servidor {
         //socket
         Socket socket = null;
         //socket con puerto de escucha
-        ServerSocket serverSocket = new ServerSocket(5432);
-        
+        ServerSocket serverSocket = new ServerSocket(4500);
+        int i = 0;
         while(true) {
             try{
                 //escucha el puerto 5432
                 socket = serverSocket.accept();
                 //imprime la ip del mensaje que fue recibido en el puerto
+                System.out.println("mensaje numero: " + i);
                 System.out.println("\nSe conectaron desde la IP: " + socket.getInetAddress()); 
                 //obtencion del mensaje
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
@@ -30,6 +31,7 @@ public class Servidor {
 
                 //desempaquetado de informacion para la obtencion de datos del mensaje
                 String nombre = (String) objectInputStream.readObject();
+                System.out.println("mensaje de: " + nombre);
                 //saludo al cliete, con su nombre y hora de recibido en el servidor
                 String saludo = "Hola " + nombre + " tiempo: " + System.currentTimeMillis();
 
@@ -37,6 +39,7 @@ public class Servidor {
                 objectOutputStream.writeObject(saludo);
                 //confirmacion de envio de mensaje en consola
                 System.out.println("enviando mensaje al cliente");
+                i++;
             }
             catch (Exception ex){
                 ex.printStackTrace();    

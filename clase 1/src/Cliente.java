@@ -15,7 +15,7 @@ public class Cliente {
         Socket socket = null;
         
         try {
-            socket = new Socket("127.0.0.1", 5432);
+            socket = new Socket("172.16.100.81", 4500);
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             

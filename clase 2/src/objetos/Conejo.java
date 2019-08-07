@@ -25,7 +25,7 @@ public class Conejo {
     }
 
     public void setSentimiento(String sentimiento) {
-        String[][] sentimientos = new String[6][2];
+        String[][] sentimientos = new String[2][6];
         String cara = this.sentimiento;
         sentimientos[0][0]= "felicidad";
         sentimientos[0][1]= "tristeza";
@@ -33,12 +33,12 @@ public class Conejo {
         sentimientos[0][3]= "seriedad";
         sentimientos[0][4]= "sospecha";
         sentimientos[0][5]= "raro";
-        sentimientos[1][0]= "(='U'=)";
-        sentimientos[1][1]= "(=ToT=)";
-        sentimientos[1][2]= "(=O.o=)";
-        sentimientos[1][3]= "(=-_-=)";
-        sentimientos[1][4]= "(=¬_¬=)";
-        sentimientos[1][5]= "(=@_@=)";
+        sentimientos[1][0]= " (='U'=)";
+        sentimientos[1][1]= " (=ToT=)";
+        sentimientos[1][2]= " (=O.o=)";
+        sentimientos[1][3]= " (=-_-=)";
+        sentimientos[1][4]= " (=¬_¬=)";
+        sentimientos[1][5]= " (=@_@=)";
         for(int i=0; i<6;i++){
             if(sentimientos[0][i].matches(sentimiento)){
                 cara = sentimientos[1][i];

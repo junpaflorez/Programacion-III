@@ -9,6 +9,7 @@ public class Servidor {
     public static void main (String args []) throws Exception{
         
         Conejo bugs = new Conejo();
+        bugs.setSentimiento("locura");
         System.out.println(bugs.getOrejas()+"\n"+bugs.getSentimiento()+"\n"+ bugs.getPatas());
         //objeto de escucha
         ObjectInputStream objectInputStream = null;

@@ -2,15 +2,23 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import objetos.Conejo;
+import objetos.Familia;
 
 public class Servidor {
     
     public static void main (String args []) throws Exception{
-        
+        ArrayList<Familia> vecindad = new ArrayList();
+        String respuesta = "";
+        Familia bunny = new Familia("bunny");
         Conejo bugs = new Conejo("bugs");
-        bugs.setSentimiento("locura");
-        System.out.println("nombre: " +bugs.getNombre() + "\n" + bugs.getOrejas()+"\n"+bugs.getSentimiento()+"\n"+ bugs.getPatas());
+        Conejo lola = new Conejo("lola");
+        bunny.setPadre(bugs);
+        bunny.setMadre(lola);
+        vecindad.add(bunny);
+        respuesta = buscarPadreMadre("fernando",vecindad);
+        System.out.println("respuesta: " + respuesta);
         //objeto de escucha
         ObjectInputStream objectInputStream = null;
         //objeto de envio de informacion
@@ -62,6 +70,26 @@ public class Servidor {
             
         }
         
+    }
+    
+    public static String buscarPadreMadre(String nombreConejo, ArrayList<Familia> vecindad){
+        Conejo padre = new Conejo("padre");
+        Conejo madre = new Conejo("madre");
+        for(Familia familia : vecindad){
+            if(familia.getPadre() != null){
+                padre = familia.getPadre();
+                if(padre.getNombre() == nombreConejo){
+                    return "El conejo es un padre de la familia: " + familia.getNombre();
+                }
+            }
+            if(familia.getMadre() != null){
+                madre = familia.getMadre();
+                if(madre.getNombre().matches(nombreConejo)){
+                    return "El conejo es una madre de la familia: " + familia.getNombre();
+                }
+            }
+        }
+        return "El conejo no es ni una madre ni un padre";
     }
     
 }

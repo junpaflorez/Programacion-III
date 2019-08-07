@@ -9,6 +9,7 @@ import objetos.Familia;
 public class Servidor {
     
     public static void main (String args []) throws Exception{
+        /*
         ArrayList<Familia> vecindad = new ArrayList();
         String respuesta = "";
         Familia bunny = new Familia("bunny");
@@ -19,6 +20,7 @@ public class Servidor {
         vecindad.add(bunny);
         respuesta = buscarPadreMadre("fernando",vecindad);
         System.out.println("respuesta: " + respuesta);
+        */
         //objeto de escucha
         ObjectInputStream objectInputStream = null;
         //objeto de envio de informacion
@@ -30,10 +32,9 @@ public class Servidor {
         int i = 0;
         while(true) {
             try{
-                //escucha el puerto 5432
+                //escucha el puerto 4500
                 socket = serverSocket.accept();
                 //imprime la ip del mensaje que fue recibido en el puerto
-                System.out.println("mensaje numero: " + i);
                 System.out.println("\nSe conectaron desde la IP: " + socket.getInetAddress()); 
                 //obtencion del mensaje
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
@@ -41,10 +42,10 @@ public class Servidor {
                 objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
                 //desempaquetado de informacion para la obtencion de datos del mensaje
-                String nombre = (String) objectInputStream.readObject();
-                System.out.println("mensaje de: " + nombre);
+                Conejo conejo = (Conejo) objectInputStream.readObject();
+                System.out.println("Nombre: " + conejo.getNombre() + "\n"+ conejo.getOrejas() + "\n" + conejo.getSentimiento() + "\n" + conejo.getPatas());
                 //saludo al cliete, con su nombre y hora de recibido en el servidor
-                String saludo = "Hola " + nombre + " tiempo: " + System.currentTimeMillis();
+                String saludo = "gracias por su conejo mensaje señor(a): " + conejo.getNombre();
 
                 //envio del mensaje
                 objectOutputStream.writeObject(saludo);

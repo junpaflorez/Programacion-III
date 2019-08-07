@@ -4,11 +4,21 @@ public class Conejo {
     private String orejas;
     private String sentimiento;
     private String patas;
+    private String nombre;
 
-    public Conejo() {
+    public Conejo(String nombre) {
         this.orejas = " (')_(')";
         this.sentimiento = " (='.'=)";
         this.patas = "('')__('')";
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 
@@ -39,9 +49,9 @@ public class Conejo {
         sentimientos[1][3]= " (=-_-=)";
         sentimientos[1][4]= " (=¬_¬=)";
         sentimientos[1][5]= " (=@_@=)";
-        for(int i=0; i<6;i++){
-            if(sentimientos[0][i].matches(sentimiento)){
-                cara = sentimientos[1][i];
+        for(int fila=0; fila<6; fila++){
+            if(sentimientos[0][fila].matches(sentimiento)){
+                cara = sentimientos[1][fila];
             }
         this.sentimiento = cara;
         }

@@ -8,9 +8,9 @@ public class Servidor {
     
     public static void main (String args []) throws Exception{
         
-        Conejo bugs = new Conejo();
+        Conejo bugs = new Conejo("bugs");
         bugs.setSentimiento("locura");
-        System.out.println(bugs.getOrejas()+"\n"+bugs.getSentimiento()+"\n"+ bugs.getPatas());
+        System.out.println("nombre: " +bugs.getNombre() + "\n" + bugs.getOrejas()+"\n"+bugs.getSentimiento()+"\n"+ bugs.getPatas());
         //objeto de escucha
         ObjectInputStream objectInputStream = null;
         //objeto de envio de informacion

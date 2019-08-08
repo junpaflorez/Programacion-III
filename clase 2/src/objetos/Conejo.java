@@ -1,6 +1,8 @@
 package objetos;
 
-public class Conejo {
+import java.io.Serializable;
+
+public class Conejo implements Serializable{
     private String orejas;
     private String sentimiento;
     private String patas;

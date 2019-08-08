@@ -1,12 +1,13 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import objetos.Conejo;
 import objetos.Familia;
 
-public class Servidor {
+public class Servidor{
     
     public static void main (String args []) throws Exception{
         /*
@@ -79,7 +80,7 @@ public class Servidor {
         for(Familia familia : vecindad){
             if(familia.getPadre() != null){
                 padre = familia.getPadre();
-                if(padre.getNombre() == nombreConejo){
+                if(padre.getNombre().matches(nombreConejo)){
                     return "El conejo es un padre de la familia: " + familia.getNombre();
                 }
             }

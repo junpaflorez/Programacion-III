@@ -1,9 +1,11 @@
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
+import objetos.Conejo;
 
-public class Cliente {
+public class Cliente{
     
     public static void main( String args [] ) throws Exception{
         
@@ -13,11 +15,11 @@ public class Cliente {
         Socket socket = null;
         
         try {
-            socket = new Socket("172.16.100.81", 4500);
+            socket = new Socket("127.0.0.1", 4500);
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
-            
-            objectOutputStream.writeObject("Juan Pablo Florez Caicedo");
+            Conejo miConejo = new Conejo("Juan Pablo");
+            objectOutputStream.writeObject(miConejo);
             
             String respuesta = (String) objectInputStream.readObject();
             System.out.println("respuesta: " + respuesta);

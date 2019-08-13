@@ -36,7 +36,7 @@ public class Servidor{
                 //escucha el puerto 4500
                 socket = serverSocket.accept();
                 //imprime la ip del mensaje que fue recibido en el puerto
-                System.out.println("\nSe conectaron desde la IP: " + socket.getInetAddress()); 
+                //System.out.println("\nSe conectaron desde la IP: " + socket.getInetAddress()); 
                 //obtencion del mensaje
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
                 //salida del mensaje
@@ -44,7 +44,7 @@ public class Servidor{
 
                 //desempaquetado de informacion para la obtencion de datos del mensaje
                 Conejo conejo = (Conejo) objectInputStream.readObject();
-                System.out.println( conejo.getOrejas() +  "/tnombre:" + 
+                System.out.println( conejo.getOrejas() +  "\tnombre:" + 
                         conejo.getNombre() + "\n" + conejo.getSentimiento() +
                         "\n" + conejo.getPatas() + "\n" + "mensaje: " + 
                         conejo.getMensaje());
@@ -57,7 +57,7 @@ public class Servidor{
                 //envio del mensaje
                 objectOutputStream.writeObject(saludo);
                 //confirmacion de envio de mensaje en consola
-                System.out.println("enviando mensaje al cliente");
+                //System.out.println("enviando mensaje al cliente");
                 i++;
             }
             catch (Exception ex){
@@ -73,7 +73,7 @@ public class Servidor{
                 if(socket != null){
                     socket.close();
                 }
-                System.out.println("Conexion cerrada o terminada");
+                //System.out.println("Conexion cerrada o terminada");
             }
             
         }

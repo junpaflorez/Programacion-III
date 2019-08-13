@@ -3,11 +3,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.Scanner;
 import objetos.Conejo;
 
 public class Cliente{
     
     public static void main( String args [] ) throws Exception{
+        System.out.println("escriba su mensaje aqui: ");
+        Scanner mensaje = new Scanner(System.in);
+        String mensajeChat = mensaje.nextLine();
         
         ObjectInputStream objectInputStream = null;
         ObjectOutputStream objectOutputStream = null;
@@ -15,14 +19,16 @@ public class Cliente{
         Socket socket = null;
         
         try {
-            socket = new Socket("127.0.0.1", 4500);
+            socket = new Socket("172.16.100.250", 4500);
+            //socket = new Socket("172.16.10.x", 4500);
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             Conejo miConejo = new Conejo("Juan Pablo");
+            miConejo.setMensaje(mensajeChat);
             objectOutputStream.writeObject(miConejo);
             
             String respuesta = (String) objectInputStream.readObject();
-            System.out.println("respuesta: " + respuesta);
+            System.out.println(respuesta);
             
         }catch(Exception ex){
             ex.printStackTrace();
@@ -36,7 +42,7 @@ public class Cliente{
                 if(socket != null){
                     socket.close();
                 }
-                System.out.println("Conexion cerrada o terminada");
+                //System.out.println("Conexion cerrada o terminada");
         }
     }
     

@@ -1,9 +1,10 @@
 package objetos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Familia {
+public class Familia implements Serializable{
     private Conejo padre;
     private Conejo madre;
     private List<Conejo> hijos;

@@ -44,7 +44,10 @@ public class Servidor{
 
                 //desempaquetado de informacion para la obtencion de datos del mensaje
                 Conejo conejo = (Conejo) objectInputStream.readObject();
-                System.out.println("Nombre: " + conejo.getNombre() + "\n"+ conejo.getOrejas() + "\n" + conejo.getSentimiento() + "\n" + conejo.getPatas());
+                System.out.println( conejo.getOrejas() +  "/tnombre:" + 
+                        conejo.getNombre() + "\n" + conejo.getSentimiento() +
+                        "\n" + conejo.getPatas() + "\n" + "mensaje: " + 
+                        conejo.getMensaje());
                 //saludo al cliete, con su nombre y hora de recibido en el servidor
                 String saludo = "gracias por su conejo mensaje señor(a): " + conejo.getNombre();
 

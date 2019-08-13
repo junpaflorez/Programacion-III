@@ -6,13 +6,23 @@ public class Conejo implements Serializable{
     private String orejas;
     private String sentimiento;
     private String patas;
-    private String nombre;
-
+    private String nombre; // usuario
+    private String mensaje;
+    
     public Conejo(String nombre) {
         this.orejas = " (')_(')";
         this.sentimiento = " (='.'=)";
         this.patas = "('')__('')";
         this.nombre = nombre;
+        this.mensaje = "hola soy: " + nombre + "!";
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
     public String getNombre() {
@@ -22,7 +32,6 @@ public class Conejo implements Serializable{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 
     public String getOrejas() {
         return orejas;

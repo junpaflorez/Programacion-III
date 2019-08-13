@@ -49,7 +49,10 @@ public class Servidor{
                         "\n" + conejo.getPatas() + "\n" + "mensaje: " + 
                         conejo.getMensaje());
                 //saludo al cliete, con su nombre y hora de recibido en el servidor
-                String saludo = "gracias por su conejo mensaje señor(a): " + conejo.getNombre();
+                String saludo = conejo.getOrejas() +  "/tnombre:" + 
+                        conejo.getNombre() + "\n" + conejo.getSentimiento() +
+                        "\n" + conejo.getPatas() + "\n" + "mensaje: " + 
+                        conejo.getMensaje();
 
                 //envio del mensaje
                 objectOutputStream.writeObject(saludo);

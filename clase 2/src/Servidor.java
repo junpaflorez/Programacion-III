@@ -10,18 +10,6 @@ import objetos.Familia;
 public class Servidor{
     
     public static void main (String args []) throws Exception{
-        /*
-        ArrayList<Familia> vecindad = new ArrayList();
-        String respuesta = "";
-        Familia bunny = new Familia("bunny");
-        Conejo bugs = new Conejo("bugs");
-        Conejo lola = new Conejo("lola");
-        bunny.setPadre(bugs);
-        bunny.setMadre(lola);
-        vecindad.add(bunny);
-        respuesta = buscarPadreMadre("fernando",vecindad);
-        System.out.println("respuesta: " + respuesta);
-        */
         //objeto de escucha
         ObjectInputStream objectInputStream = null;
         //objeto de envio de informacion
@@ -30,7 +18,6 @@ public class Servidor{
         Socket socket = null;
         //socket con puerto de escucha
         ServerSocket serverSocket = new ServerSocket(4500);
-        int i = 0;
         while(true) {
             try{
                 //escucha el puerto 4500
@@ -58,7 +45,6 @@ public class Servidor{
                 objectOutputStream.writeObject(saludo);
                 //confirmacion de envio de mensaje en consola
                 //System.out.println("enviando mensaje al cliente");
-                i++;
             }
             catch (Exception ex){
                 ex.printStackTrace();    

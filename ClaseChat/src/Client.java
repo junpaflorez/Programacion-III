@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Client {
 
-    private static final String host = "localhost";
+    private static final String host = "172.16.100.51";
     private static final int portNumber = 4444;
 
     private String userName;

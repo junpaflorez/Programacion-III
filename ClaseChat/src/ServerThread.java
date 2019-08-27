@@ -1,86 +1,64 @@
+package com.mycompany.chat;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.util.LinkedList;
+import java.util.Scanner;
 
-public class ServerThread implements Runnable{
+public class ServerThread implements Runnable {
     private Socket socket;
-    private String name;
-    private BufferedReader serverIn;
-    private BufferedReader userIn;
-    private PrintWriter out;
+    private String userName;
+    private boolean isAlived;
+    private final LinkedList<String> messagesToSend;
+    private boolean hasMessages = false;
 
-    public ServerThread(Socket socket, String name) {
+    public ServerThread(Socket socket, String userName){
         this.socket = socket;
-        this.name = name;
+        this.userName = userName;
+        messagesToSend = new LinkedList<String>();
     }
 
-    public Socket getSocket() {
-        return socket;
+    public void addNextMessage(String message){
+        synchronized (messagesToSend){
+            hasMessages = true;
+            messagesToSend.push(message);
+        }
     }
 
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BufferedReader getServerIn() {
-        return serverIn;
-    }
-
-    public void setServerIn(BufferedReader serverIn) {
-        this.serverIn = serverIn;
-    }
-
-    public BufferedReader getUserIn() {
-        return userIn;
-    }
-
-    public void setUserIn(BufferedReader userIn) {
-        this.userIn = userIn;
-    }
-
-    public PrintWriter getOut() {
-        return out;
-    }
-
-    public void setOut(PrintWriter out) {
-        this.out = out;
-    }
-    
- 
-    
     @Override
-    public void run() {
+    public void run(){
+        System.out.println("Welcome :" + userName);
+
+        System.out.println("Local Port :" + socket.getLocalPort());
+        System.out.println("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort());
+
         try{
-            out = new PrintWriter(socket.getOutputStream(),true);
-            serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            userIn = new BufferedReader(new InputStreamReader(System.in));
-            
+            PrintWriter serverOut = new PrintWriter(socket.getOutputStream(), false);
+            InputStream serverInStream = socket.getInputStream();
+            Scanner serverIn = new Scanner(serverInStream);
+            // BufferedReader userBr = new BufferedReader(new InputStreamReader(userInStream));
+            // Scanner userIn = new Scanner(userInStream);
+
             while(!socket.isClosed()){
-                if(serverIn.ready()){
-                    String input = serverIn.readLine();
-                    if(input!=null){
-                        System.out.println(input);
+                if(serverInStream.available() > 0){
+                    if(serverIn.hasNextLine()){
+                        System.out.println(serverIn.nextLine());
                     }
                 }
-                if(userIn.ready()){
-                    out.println(name + ">" + userIn.readLine());
+                if(hasMessages){
+                    String nextSend = "";
+                    synchronized(messagesToSend){
+                        nextSend = messagesToSend.pop();
+                        hasMessages = !messagesToSend.isEmpty();
+                    }
+                    serverOut.println(userName + " > " + nextSend);
+                    serverOut.flush();
                 }
             }
         }
-        catch(IOException e){
-            e.printStackTrace();
+        catch(IOException ex){
+            ex.printStackTrace();
         }
+
     }
-    
 }

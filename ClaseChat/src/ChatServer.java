@@ -1,40 +1,56 @@
+package com.mycompany.chat;
 
-import com.sun.xml.internal.ws.handler.ClientSOAPHandlerTube;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatServer {
-    
-    public static void main(String [] args){
+
+    private static final int portNumber = 4444;
+    private int serverPort;
+    private List<ClientThread1> clients; // or "protected static List<ClientThread> clients;"
+
+    public static void main(String[] args){
+        ChatServer server = new ChatServer(portNumber);
+        server.startServer();
+    }
+
+    public ChatServer(int portNumber){
+        this.serverPort = portNumber;
+    }
+
+    public List<ClientThread1> getClients(){
+        return clients;
+    }
+
+    private void startServer(){
+        clients = new ArrayList<ClientThread1>();
         ServerSocket serverSocket = null;
-        int portNumber = 4444;
-        try{
-            serverSocket = new ServerSocket(portNumber);
+        try {
+            serverSocket = new ServerSocket(serverPort);
             acceptClients(serverSocket);
-        } catch (IOException e) {
-            System.err.println("No se pudo escuchar el puerto: " + portNumber);
+        } catch (IOException e){
+            System.err.println("Could not listen on port: "+serverPort);
             System.exit(1);
         }
     }
-    
-    public static void acceptClients(ServerSocket serverSocket){
-        ArrayList<ClientThread> listClients  = new ArrayList<>();
+
+    private void acceptClients(ServerSocket serverSocket){
+
+        System.out.println("server starts port = " + serverSocket.getLocalSocketAddress());
         while(true){
             try{
                 Socket socket = serverSocket.accept();
-                ClientThread client = new ClientThread(socket, listClients);
+                System.out.println("accepts : " + socket.getRemoteSocketAddress());
+                ClientThread1 client = new ClientThread1(this, socket);
                 Thread thread = new Thread(client);
                 thread.start();
-                listClients.add(client);
-            }
-            catch(IOException e){
-                System.out.println("No se permitio el ingreso");
+                clients.add(client);
+            } catch (IOException ex){
+                System.out.println("Accept failed on : "+serverPort);
             }
         }
     }
-
-    
-    
 }

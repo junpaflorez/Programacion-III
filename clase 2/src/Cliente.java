@@ -20,7 +20,6 @@ public class Cliente{
             objectOutputStream.writeObject(mensajeChat);
         
             try {
-                //socket = new Socket("172.16.10.x", 4500);
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
                 String respuesta = (String) objectInputStream.readObject();
                 System.out.println(respuesta);

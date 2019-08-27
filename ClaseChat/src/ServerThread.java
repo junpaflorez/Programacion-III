@@ -1,4 +1,3 @@
-package com.mycompany.chat;
 
 import java.io.*;
 import java.net.Socket;

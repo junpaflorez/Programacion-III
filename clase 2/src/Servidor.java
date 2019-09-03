@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import objetos.Conejo;
+import com.mycompany.chat.Conejo;
 import objetos.Familia;
 
 public class Servidor{

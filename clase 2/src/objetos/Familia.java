@@ -1,5 +1,6 @@
 package objetos;
 
+import com.mycompany.chat.Conejo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

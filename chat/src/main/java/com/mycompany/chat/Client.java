@@ -50,16 +50,24 @@ public class Client {
             Thread serverAccessThread = new Thread(serverThread);
             serverAccessThread.start();
             while(serverAccessThread.isAlive()){
+                System.out.println("por favor escriba su mensaje");
                 if(scan.hasNextLine()){
                     String mensaje = scan.nextLine();
-                    if(mensaje.matches("setSentimiento")){
-                        System.out.println("por favor indique el sentimiento del conejo");
-                        miConejo.setSentimiento(scan.nextLine());
-                        serverThread.addNextMessage(mensaje);
-                    }
-                    else{
-                        serverThread.addNextMessage(mensaje);
-                    }
+                    switch (mensaje){
+                        case "setSentimiento" :
+                            System.out.println("por favor indique el sentimiento del conejo");
+                            miConejo.setSentimiento(scan.nextLine());
+                            break;
+                        case "setOrejas" :
+                            System.out.println("por favor indique las orejas del conejo");
+                            miConejo.setOrejas(scan.nextLine());
+                            break;
+                        case "setPatas":
+                            System.out.println("por favor indique las patas del conejo");
+                            miConejo.setPatas(scan.nextLine());
+                            break;
+                        }
+                    serverThread.addNextMessage(mensaje);
                 }
                 // NOTE: scan.hasNextLine waits input (in the other words block this thread's process).
                 // NOTE: If you use buffered reader or something else not waiting way,
